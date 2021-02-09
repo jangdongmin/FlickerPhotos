@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M2m-rJ-j0G">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Photo Album Controller-->
+        <scene sceneID="Iqa-O7-fn9">
+            <objects>
+                <viewController id="M2m-rJ-j0G" customClass="PhotoAlbumController" customModule="FlickerPhotos" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Tsi-Ia-oYO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3kZ-OI-KCs" customClass="SlideView" customModule="photoAlbum" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QfO-l5-zJz">
+                                <rect key="frame" x="182" y="432.5" width="50" height="41"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                <state key="normal" title="Start"/>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ylW-pn-bjd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="ylW-pn-bjd" firstAttribute="bottom" secondItem="3kZ-OI-KCs" secondAttribute="bottom" id="5sd-pP-i3S"/>
+                            <constraint firstItem="QfO-l5-zJz" firstAttribute="centerX" secondItem="ylW-pn-bjd" secondAttribute="centerX" id="8IO-i7-oIZ"/>
+                            <constraint firstItem="QfO-l5-zJz" firstAttribute="centerY" secondItem="ylW-pn-bjd" secondAttribute="centerY" id="FaI-VW-3eB"/>
+                            <constraint firstItem="ylW-pn-bjd" firstAttribute="trailing" secondItem="3kZ-OI-KCs" secondAttribute="trailing" id="Lw1-u0-d3d"/>
+                            <constraint firstItem="3kZ-OI-KCs" firstAttribute="top" secondItem="ylW-pn-bjd" secondAttribute="top" id="QHW-Cd-Vyh"/>
+                            <constraint firstItem="3kZ-OI-KCs" firstAttribute="leading" secondItem="ylW-pn-bjd" secondAttribute="leading" id="U47-W0-jYL"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="slideView" destination="3kZ-OI-KCs" id="fnB-Qj-akc"/>
+                        <outlet property="startButton" destination="QfO-l5-zJz" id="xYn-In-BxI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qNr-b8-6QO" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="109" y="78"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

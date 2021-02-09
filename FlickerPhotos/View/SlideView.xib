@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SlideView" customModule="FlickerPhotos" customModuleProvider="target">
+            <connections>
+                <outlet property="indicator" destination="akW-5M-OPO" id="ue0-JS-Sfe"/>
+                <outlet property="slideImageView" destination="Ses-yE-ZMW" id="2ao-Xf-Ubv"/>
+                <outlet property="timeIntervalTextField" destination="xib-XO-dLx" id="2gy-sG-U5T"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="2" borderStyle="bezel" placeholder="1~10초" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xib-XO-dLx">
+                    <rect key="frame" x="137.5" y="60.5" width="256.5" height="28.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad" returnKeyType="done"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="doneAccessory" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                </textField>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time interval" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pKa-WD-Frq">
+                    <rect key="frame" x="20" y="64" width="97.5" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="akW-5M-OPO">
+                    <rect key="frame" x="188.5" y="482" width="37" height="37"/>
+                </activityIndicatorView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.0" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Ses-yE-ZMW">
+                    <rect key="frame" x="0.0" y="105" width="414" height="791"/>
+                </imageView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="Ses-yE-ZMW" firstAttribute="trailing" secondItem="vUN-kp-3ea" secondAttribute="trailing" id="1D1-ZN-miH"/>
+                <constraint firstItem="xib-XO-dLx" firstAttribute="leading" secondItem="pKa-WD-Frq" secondAttribute="trailing" constant="20" id="4ZR-6P-Cnu"/>
+                <constraint firstItem="akW-5M-OPO" firstAttribute="centerY" secondItem="Ses-yE-ZMW" secondAttribute="centerY" id="Dvh-w4-lrP"/>
+                <constraint firstItem="pKa-WD-Frq" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="20" id="Irb-8c-cBc"/>
+                <constraint firstItem="Ses-yE-ZMW" firstAttribute="top" secondItem="pKa-WD-Frq" secondAttribute="bottom" constant="20" id="MXg-NR-6Si"/>
+                <constraint firstItem="akW-5M-OPO" firstAttribute="centerX" secondItem="Ses-yE-ZMW" secondAttribute="centerX" id="QiM-gc-uYh"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" secondItem="xib-XO-dLx" secondAttribute="trailing" constant="20" id="SOf-ht-wVS"/>
+                <constraint firstItem="pKa-WD-Frq" firstAttribute="top" secondItem="vUN-kp-3ea" secondAttribute="top" constant="20" id="ShQ-3C-l3c"/>
+                <constraint firstItem="xib-XO-dLx" firstAttribute="centerY" secondItem="pKa-WD-Frq" secondAttribute="centerY" id="dtX-yX-Xvd"/>
+                <constraint firstItem="Ses-yE-ZMW" firstAttribute="leading" secondItem="vUN-kp-3ea" secondAttribute="leading" id="ipZ-nC-JhM"/>
+                <constraint firstItem="Ses-yE-ZMW" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottom" id="xrL-Mn-cjJ"/>
+            </constraints>
+            <point key="canvasLocation" x="155" y="122"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
