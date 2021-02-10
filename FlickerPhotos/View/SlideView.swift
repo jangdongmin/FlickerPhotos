@@ -134,7 +134,7 @@ class SlideView: UIView {
                 // maximumSaveUrlCount 보다 적을 경우, remainImageCount 를 호출한다.
                 // 현재 이미지(경로)의 수를 리턴한다.
                 // 다음 이미지를 미리 로드시켜놓기 위해.
-                if self.maximumSaveUrlCount > self.imageUrls.count {
+                if self.prepareImageMaxCount > self.imageUrls.count {
                     self.delegate?.remainImageCount(count: self.imageUrls.count)
                 }
 
