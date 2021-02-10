@@ -20,14 +20,14 @@ class SlideView: UIView {
     @IBOutlet private weak var indicator: UIActivityIndicatorView!
     
     private var duration: TimeInterval = 2
-    private var maximumSaveUrlCount = 10
+    private var prepareImageMaxCount = 10 // 대기중인 이미지(경로) 최대 갯수
     private var isSliding = false
     
     // 이미지 경로를 저장한다.
     // 1. cache 또는 disk 에서 이미지를 가져오자
-    // 2. 저장되어있는 이미지가 없을경우 해당 URL로 가져오자
+    // 2. 저장되어있는 이미지가 없을 경우 해당 URL에 이미지를 다운로드 한다.
     private var imageUrls = [String]() {
-        didSet { 
+        didSet {
             if imageUrls.count == 0 {
                 indicator.isHidden = false
             } else {
@@ -76,14 +76,14 @@ class SlideView: UIView {
         imageUrls.append(contentsOf: urls)
     }
     
-    // 저장할 수 있는 이미지(경로) 최대 갯수
-    func setMaximumSaveUrlCount(count: Int) {
-        maximumSaveUrlCount = count
+    // 대기중인 이미지(경로) 최대 갯수
+    func setPrepareImageMaxCount(count: Int) {
+        prepareImageMaxCount = count
     }
     
-    // 저장할 수 있는 이미지(경로) 최대 갯수
-    func getMaximumSaveUrlCount() -> Int {
-        return maximumSaveUrlCount
+    // 대기중인 이미지(경로) 최대 갯수
+    func getPrepareImageMaxCount() -> Int {
+        return prepareImageMaxCount
     }
     
     // 슬라이드 시작여부
@@ -113,7 +113,7 @@ class SlideView: UIView {
         let imagePath = imageUrls[0]
         // 시간복잡도 O(k) = dropFirst
         // 이미지 보여준건 지우자.
-        imageUrls = imageUrls.dropFirst().map { $0 }        
+        imageUrls = imageUrls.dropFirst().map { $0 }
         guard let url = URL(string: imagePath) else {
             print("url error")
             return
@@ -125,7 +125,7 @@ class SlideView: UIView {
             // 1. SlideReactor 에서 이미지를 미리 로드한다. cache 또는 disk 에 저장해둠.
             // 2. 또는, 미리 로드 할 필요없이 이미지 경로만 있으면 load가 되게끔 만들었다.
             self.slideImageView.sd_setImage(with: url) { [weak self] (image, error, type, url) in
-                guard let `self` = self else { return }                
+                guard let `self` = self else { return }
                 guard error == nil else {
                     print(error ?? "image load error")
                     return
@@ -163,7 +163,7 @@ extension SlideView: UITextFieldDelegate {
         guard let str = textField.text else { return }
         guard let intValue = Int(str) else {
             timeIntervalTextField.toolBarItemTextUpdate()
-            return            
+            return
         }
          
         if intValue > 10 {

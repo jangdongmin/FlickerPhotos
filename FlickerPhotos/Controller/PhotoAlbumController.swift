@@ -32,7 +32,7 @@ class PhotoAlbumController: UIViewController, StoryboardView {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        // flicker 이미지 경로를  가져왔다면, 이미지를 로드한다.
+        // flicker 에서 이미지(경로)를 가져왔다면, 처음 보여질 이미지 2개를 동시 다운로드 한다.
         // 이미지는 cache 또는 disk에 저장해둔다.
         reactor.state.map { $0.flickrObject }.distinctUntilChanged { (last, new) in
             if new.count != 0, last.count == new.count {
@@ -40,7 +40,7 @@ class PhotoAlbumController: UIViewController, StoryboardView {
             }
             return false
         }.observe(on: MainScheduler.asyncInstance)
-        .compactMap { _ in Reactor.Action.prepareImage(2) } //처음 몇개 로드할껀지 셋팅 할 수 있다.
+        .compactMap { _ in Reactor.Action.prepareImage(2) } // 이미지 2개를 동시 다운로드
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
 
@@ -59,7 +59,7 @@ class PhotoAlbumController: UIViewController, StoryboardView {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
 
-        // 다음 이미지를 보여줄떄마다 currentImageIndex를 + 1 씩 증가시킨다.
+        // 이미지 다운로드가 완료되면, slideView의 setImageUrl에 넘겨준다.
         reactor.state.map { $0.currentImageIndex }
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self, weak reactor] in
@@ -89,12 +89,12 @@ class PhotoAlbumController: UIViewController, StoryboardView {
 
 extension PhotoAlbumController: SlideViewDelegate {
     func remainImageCount(count: Int) {
-        if let reactor = reactor {            
+        if let reactor = reactor {
             // 이미지를 미리 로드시켜둔다.
             Observable.just(Void())
-                        .map { Reactor.Action.prepareImage(2) }
+                        .map { Reactor.Action.prepareImage(2) } //이미지 2개를 동시 다운로드
                         .bind(to: reactor.action)
-                        .disposed(by: disposeBag)            
+                        .disposed(by: disposeBag)
         }
     }
 }
