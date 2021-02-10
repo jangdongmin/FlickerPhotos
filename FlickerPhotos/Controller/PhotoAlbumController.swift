@@ -28,7 +28,10 @@ class PhotoAlbumController: UIViewController, StoryboardView {
     func bind(reactor: SlideReactor) {
         // start 버튼 눌렀을때, flicker 이미지를 가져온다
         startButton.rx.tapGesture().when(.recognized)
-            .map { _ in Reactor.Action.searchRandomTag }
+            .map { [weak self] _ in
+                self?.slideView.isLoading(isHidden: false)
+                self?.startButton.isHidden = true
+                return Reactor.Action.searchRandomTag }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
@@ -63,7 +66,6 @@ class PhotoAlbumController: UIViewController, StoryboardView {
         reactor.state.map { $0.currentImageIndex }
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self, weak reactor] in
-
                 guard let `self` = self else { return }
                 guard let reactor = reactor else { return }
                 guard $0 != 0 else { return }
@@ -81,8 +83,6 @@ class PhotoAlbumController: UIViewController, StoryboardView {
 
                 // slide 스타트
                 self.slideView.startSlide()
-                self.startButton.isHidden = true
-
             }).disposed(by: disposeBag)
     }
 }

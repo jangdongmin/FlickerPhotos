@@ -96,6 +96,10 @@ class SlideView: UIView {
         return isSliding
     }
     
+    func isLoading(isHidden: Bool) {
+        indicator.isHidden = isHidden
+    }
+    
     private func textFieldInit() {
         timeIntervalTextField.delegate = self
         timeIntervalTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
