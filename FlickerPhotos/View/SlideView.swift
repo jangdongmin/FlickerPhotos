@@ -113,8 +113,7 @@ class SlideView: UIView {
         let imagePath = imageUrls[0]
         // 시간복잡도 O(k) = dropFirst
         // 이미지 보여준건 지우자.
-        imageUrls = imageUrls.dropFirst().map { $0 }
-        print("imageUrls = ", imageUrls.count)
+        imageUrls = imageUrls.dropFirst().map { $0 }        
         guard let url = URL(string: imagePath) else {
             print("url error")
             return
@@ -123,8 +122,6 @@ class SlideView: UIView {
         DispatchQueue.main.async { [weak self] in
             guard let `self` = self else { return }
         
-            print("viewing imagePath = ", url)
-            
             // 1. SlideReactor 에서 이미지를 미리 로드한다. cache 또는 disk 에 저장해둠.
             // 2. 또는, 미리 로드 할 필요없이 이미지 경로만 있으면 load가 되게끔 만들었다.
             self.slideImageView.sd_setImage(with: url) { [weak self] (image, error, type, url) in

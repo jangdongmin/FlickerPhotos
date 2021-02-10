@@ -35,9 +35,7 @@ class SlideReactor: Reactor {
                 guard !(self.currentState.isDataLoading) else {
                     return Observable.empty()
                 }
-                
-                print("data loading")
-                
+                 
                 // random 값을 검색한다.
                 return Observable.concat([
                     Observable.just(Mutation.setIsDataLoading(true)),
@@ -73,7 +71,6 @@ class SlideReactor: Reactor {
             case let .setImageObject(obj):
                 newState.flickrObject.append(contentsOf: obj)
             case let .prepareImage(index):
-                print("prepareImage = ", index)
                 newState.currentImageIndex = index
         }
         return newState

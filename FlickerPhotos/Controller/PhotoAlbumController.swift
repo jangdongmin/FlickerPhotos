@@ -73,7 +73,7 @@ class PhotoAlbumController: UIViewController, StoryboardView {
                     print("index out of range")
                     return
                 }
-                print("set index : ", $0 - 1)
+                
                 if let url = flickrObject[($0 - 1)].media?.url {
                     // slideView에 이미지 경로를 넘긴다.
                     self.slideView.setImageUrl(urls: [url])
@@ -89,7 +89,6 @@ class PhotoAlbumController: UIViewController, StoryboardView {
 
 extension PhotoAlbumController: SlideViewDelegate {
     func remainImageCount(count: Int) {
-        print("remainImageCount = ", count)
         if let reactor = reactor {            
             // 이미지를 미리 로드시켜둔다.
             Observable.just(Void())

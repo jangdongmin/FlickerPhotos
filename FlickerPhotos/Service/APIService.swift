@@ -47,8 +47,7 @@ class APIService {
             print("url empty")
             return .just(false)
         }
-        
-        print("downloadImage = ", url)
+         
         return Observable.create { observer -> Disposable in
             SDWebImageManager.shared.loadImage(with: URL(string: url), options: .highPriority, context: nil, progress: nil) { (image, data, error, cacheType, result, url) in
                 if let err = error {
