@@ -39,7 +39,7 @@ class SlideReactor: Reactor {
                 // random 값을 검색한다.
                 return Observable.concat([
                     Observable.just(Mutation.setIsDataLoading(true)),
-                    APIService.searchPhotos(keyword: randomString(length: 3)).catchAndReturn([]).map { Mutation.setImageObject($0) },
+                    APIService.searchPhotos(keyword: randomString(length: 1)).catchAndReturn([]).map { Mutation.setImageObject($0) },
                     Observable.just(Mutation.setIsDataLoading(false))
                 ])
             case let .prepareImage(count):
