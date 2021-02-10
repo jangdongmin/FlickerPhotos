@@ -20,4 +20,6 @@ SwiftyJSON
     // SlideView -> getDuration() -> Int 
     // SlideView -> setSlidingState() // 슬라이드 시작여부
     // SlideView -> getSlidingState() -> Bool
+    // SlideView -> setPrepareImageMaxCount(count: Int) // 대기중인 이미지(경로) 최대 갯수    
+    // SlideView -> getPrepareImageMaxCount() -> Int
     //
