@@ -25,12 +25,19 @@ class PhotoAlbumController: UIViewController, StoryboardView {
         self.reactor = SlideReactor()
     }
     
+    func objectIsHidden(view: UIView, isHidden: Bool) {
+        view.isHidden = isHidden
+    }
+    
     func bind(reactor: SlideReactor) {
         // start 버튼 눌렀을때, flicker 이미지를 가져온다
         startButton.rx.tapGesture().when(.recognized)
             .map { [weak self] _ in
-                self?.slideView.isLoading(isHidden: false)
-                self?.startButton.isHidden = true
+                if let `self` = self {
+                    self.slideView.isLoading(isHidden: false)
+                    self.objectIsHidden(view: self.startButton, isHidden: true)
+                }
+                
                 return Reactor.Action.searchRandomTag }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
