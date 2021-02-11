@@ -32,25 +32,44 @@ class PhotoAlbumController: UIViewController, StoryboardView {
     func bind(reactor: SlideReactor) {
         // start 버튼 눌렀을때, flicker 이미지를 가져온다
         startButton.rx.tapGesture().when(.recognized)
-            .map { [weak self] _ in
-                if let `self` = self {
-                    self.slideView.isLoading(isHidden: false)
-                    self.objectIsHidden(view: self.startButton, isHidden: true)
-                }
-                
-                return Reactor.Action.searchRandomTag }
+            .map { _ in Reactor.Action.searchRandomTag }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.isDataLoading }
+            .subscribe(onNext: { [weak self, weak reactor] in
+                guard let `self` = self else { return }
+                guard let reactor = reactor else { return }
+                 
+                if !$0 {
+                    if reactor.currentState.flickrObject.count == 0 {
+                        self.slideView.isLoading(isHidden: true)
+                        self.objectIsHidden(view: self.startButton, isHidden: false)
+                    }
+                } else {
+                    self.slideView.isLoading(isHidden: false)
+                    self.objectIsHidden(view: self.startButton, isHidden: true)
+                }
+                    
+            }).disposed(by: disposeBag)
+        
         // flicker 에서 이미지(경로)를 가져왔다면, 처음 보여질 이미지 2개를 동시 다운로드 한다.
         // 이미지는 cache 또는 disk에 저장해둔다.
-        reactor.state.map { $0.flickrObject }.distinctUntilChanged { (last, new) in
-            if new.count != 0, last.count == new.count {
+        reactor.state.map { $0.flickrObject }
+            .observe(on: MainScheduler.asyncInstance)
+            .filter {
+                if $0.count == 0 {
+                    return false
+                }
                 return true
             }
-            return false
-        }.observe(on: MainScheduler.asyncInstance)
-        .compactMap { _ in Reactor.Action.prepareImage(2) } // 이미지 2개를 동시 다운로드
+            .distinctUntilChanged { (last, new) in
+                if last.count == new.count {
+                    return true
+                }
+                return false
+            }
+            .compactMap { _ in Reactor.Action.prepareImage(2) } // 이미지 2개를 동시 다운로드
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
 
